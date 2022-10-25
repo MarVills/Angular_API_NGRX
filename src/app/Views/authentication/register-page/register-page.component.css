@@ -1,0 +1,35 @@
+.center-items{
+    display: flex;
+    justify-content: center;
+    /* direction: unset; */
+    /* margin-top: 20vh; */
+    padding-top: 10vh;
+    color: #fff;
+    background-image: url("../../../../assets/AngularBG.jpg");  
+    background-size: 100% ;  
+    background-size: cover; 
+    height: 100vh;
+}
+.header-title{
+  font-weight: bold;
+  margin: 20px;
+}
+.example-card {
+    max-width: 500px;
+    max-height: 60vh;
+  }
+  
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  .example-form {
+    min-width: 300px;
+    max-width: 700px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }

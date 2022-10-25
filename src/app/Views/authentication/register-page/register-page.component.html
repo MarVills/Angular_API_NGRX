@@ -1,0 +1,51 @@
+<div class="center-items">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div class="center-item header-title">Register Page</div>
+        </mat-card-header>
+        <form [formGroup]="_registerForm" class="example-form">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Username</mat-label>
+              <input 
+                matInput 
+                formControlName="name" 
+                placeholder="Enter Username" 
+                >
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input 
+                matInput 
+                formControlName="email"
+                placeholder="Enter Email"
+              >
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+              matInput
+              formControlName="password"
+              type="password" 
+              placeholder="Enter password" 
+              >
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input
+                matInput
+                formControlName="password_confirmation"
+                type="password" 
+                placeholder="Retype Password" 
+                >
+            </mat-form-field>
+            <br/>
+            <button routerLink="/login" mat-button color="primary">Go to Login</button>
+            <br/>
+            <br/>
+            <button (click)="onRegister()" [disabled]="!_registerForm.valid" mat-raised-button color="primary">Register</button>
+        </form>
+    </mat-card>
+</div>

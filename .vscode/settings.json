@@ -1,0 +1,7 @@
+{
+    "dart.previewHotReloadOnSaveWatcher": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "dart.flutterHotReloadOnSave": "manualIfDirty",
+    "dart.hotReloadOnSave": "manualIfDirty"
+}

@@ -1,0 +1,42 @@
+<div class="center-items">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div class="center-item header-title">Login Page</div>
+        </mat-card-header>
+        <form [formGroup]="_loginForm" class="example-form">
+            <div *ngIf="_loginForm.controls['email'].invalid && (_loginForm.controls['email'].dirty || _loginForm.controls['email'].touched)" class="alert">
+                <!-- <div *ngIf="_registerForm.controls['email'].errors.required"> -->
+                <div>
+                  
+                </div>
+            </div>
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input 
+              matInput 
+              placeholder="Enter Email" 
+              formControlName="email"
+              >
+          </mat-form-field>
+        
+          <br/>
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input 
+              type="password" 
+              matInput 
+              placeholder="Enter password" 
+              formControlName="password"
+              >
+          </mat-form-field>
+          <button routerLink="/register" mat-button color="primary">Register Account</button>
+          <br/>
+          <br/>
+          <button (click)="onLogin()" [disabled]="!_loginForm.valid" mat-raised-button class="button-class" color="primary">Login</button>
+          <br/>
+          <br/>
+          <!-- <button routerLink="/login" mat-raised-button color="primary"></button> -->
+          <button routerLink="/forgot-password" mat-button>Forgot Password?</button>
+        </form>
+    </mat-card>
+</div>
