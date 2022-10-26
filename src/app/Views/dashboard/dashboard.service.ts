@@ -36,10 +36,11 @@ export class MainPageService {
 
     this.store.dispatch(productActions.requestFetchProductsACTION());
     // this.products$ = 
-    this.store.select('products')
+    this.store.select(selectProducts)
       .subscribe(res => {
-        console.log(res)
-        return res
+        if (res.data) {
+          console.log(res.data)
+        }
       })
       
       

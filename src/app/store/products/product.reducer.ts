@@ -7,14 +7,16 @@ import { cloneDeep } from 'lodash';
 export const productFeatureKey = 'product';
 
 export const initialState: ProductsState = {
+  // products: [],
   products: [],
 };
 
 export const productReducer = createReducer(
   initialState,
   // ================================================================================
-  on(productActions.successFetchProductACTION, (state: ProductsState, { payload }) =>
+  on(productActions.successFetchProductsACTION, (state: ProductsState, { payload }) =>
   {
+    console.log('successFetchProductsACTION', payload)
     return { ...state, products: payload }
   }),
   // ================================================================================= 

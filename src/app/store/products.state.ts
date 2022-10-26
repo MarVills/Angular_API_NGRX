@@ -21,7 +21,8 @@ export interface ProductsDTO {
 }
 
 export interface ProductsState {
-    products: ProductDTO[],
+    // products: ProductDTO[],
+    products: any,
 }
 
 // export interface ProductState {
