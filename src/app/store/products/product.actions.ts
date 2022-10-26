@@ -6,7 +6,8 @@ export const requestFetchProductsACTION = createAction(
   '[Products] Request Fetch Products'
 );
 export const successFetchProductsACTION = createAction(
-  '[Products] Success Fetch Products'
+  '[Products] Success Fetch Products',
+  props<{payload: ProductDTO[] }>()
 );
 
 // -----------------  Fetch Product -------------------

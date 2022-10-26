@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { HandleTokenService } from '../../shared/handle-token.service';
 import { AddDialogComponent } from '../components/add-dialog/add-dialog.component';
 import { DataDetailsComponent } from '../components/data-details/data-details.component';
+import * as productActions from '../../store/products/product.actions';
+import { select, Store } from '@ngrx/store';
 
 export interface DialogData {
   name: string;
@@ -39,7 +41,8 @@ export class DashboardComponent implements OnInit {
     private mainService: MainPageService,
     public headerVisibility: HeaderVisibility, 
     private router: Router,
-    private handleToken: HandleTokenService) { }
+    private handleToken: HandleTokenService,
+    private store: Store) { }
 
   ngOnInit(): void {
     this.mainService.fetchDataList()
@@ -80,25 +83,23 @@ export class DashboardComponent implements OnInit {
     });
   }
    openSolutionDetailsDialog(link:any){
-     this.mainService.fetchData(link).subscribe((response: { id: any; name: any; image_link: any; })=>{
-      console.log(response)
-      this.mainService.dataID = response.id
-      const detailDialogRef = this.dialog.open(DataDetailsComponent, {
-        data: { name: response.name, solutionLink: response.image_link},
-      });
-       detailDialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
-      });
-    });
+    this.mainService.fetchData(link).subscribe((response)=>{
+      console.log(response);
+    })
+    //  this.mainService.fetchData(link).subscribe(
+    //   (response: { id: any; name: any; image_link: any; })=>{
+    //   console.log(response)
+    //   this.mainService.dataID = response.id;
+    //   console.log("openning edit dialog");
+    //   const detailDialogRef = this.dialog.open(DataDetailsComponent, {
+    //     data: { name: response.name, solutionLink: response.image_link},
+    //   });
+    //    detailDialogRef.afterClosed().subscribe((result) => {
+    //     console.log('The dialog was closed');
+    //   });
+    // });
   }
 
-  onUpdate(data:any){
-    return this.crudService.updateData(data.id, data).subscribe((response)=>{
-      console.log(response)
-      this.mainService.fetchDataList()
-      
-    });
-  }
 
   onLogout(){
     this.handleToken.signOut();

@@ -28,6 +28,9 @@ import { AddDialogComponent } from './Views/components/add-dialog/add-dialog.com
 import { DataDetailsComponent } from './Views/components/data-details/data-details.component';
 import { StoreModule } from '@ngrx/store';
 import * as product from './store/products/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './store/products/product.effects';
+
 
 
 @NgModule({
@@ -56,8 +59,8 @@ import * as product from './store/products/product.reducer';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
-    StoreModule.forRoot({ product: product.productReducer })
+    StoreModule.forRoot({ product: product.productReducer }),
+    EffectsModule.forRoot([ProductEffects]),
   ],
   exports: [],
   providers: [

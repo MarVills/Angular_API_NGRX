@@ -1,24 +1,22 @@
 <h1 mat-dialog-title>Add Problem Solution</h1>
-<form (ngSubmit)="onSubmit(dataForm.value)" #dataForm="ngForm">
+<form [formGroup]="_productForm" (ngSubmit)="onSubmit()" #dataForm="ngForm">
   <div mat-dialog-content class="text-field">
     <p>Enter Code Problem</p>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Code Problem</mat-label>
       <input 
-      [(ngModel)]="data.name" 
+      formControlName="name"
       matInput 
-      name="name"
       >
     </mat-form-field>
   </div>
   <div mat-dialog-content class="text-field">
     <p>Solution Link of the Code Problem</p>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Solution Link</mat-label>
       <input 
-      [(ngModel)]="data.solutionLink" 
       matInput
-      name="image_link"
+      formControlName="image_link"
       >
     </mat-form-field>
   </div>

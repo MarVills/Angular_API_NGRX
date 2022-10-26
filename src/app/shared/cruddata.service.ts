@@ -15,7 +15,10 @@ export class CRUDdataService {
     // private tokenInterceptor: TokenInterceptorService,
     ) { }
   config = {
-    headers: new HttpHeaders({'Authorization': 'Bearer '+this.handleToken.getToken()})
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer '+this.handleToken.getToken(),
+      
+    })
   }
 
   // config = {

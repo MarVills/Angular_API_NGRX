@@ -3,13 +3,13 @@ export interface Product {
     id?: number,
     name?: string,
     price?: string,
-    imageLink?: string, 
+    image_link?: string, 
 }
 export interface ProductDTO {
     id?: number,
     name?: string,
     price?: string,
-    imageLink?: string, 
+    image_link?: string, 
 }
 
 export interface Products {

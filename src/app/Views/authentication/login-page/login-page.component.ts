@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
         console.log(response.token)
         this.handleToken.saveToken(response.token);
         this.handleToken.saveUser(response);
-        this.handleToken.autoLogout();
+        // this.handleToken.autoLogout();
       },
       error:(error) => console.log("LOGIN ERROR: "+error),
       complete: () => {

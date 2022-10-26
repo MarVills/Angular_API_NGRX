@@ -1,0 +1,9 @@
+{
+    "/api/*": {
+      "target": "https://api-001.emberspec.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+    

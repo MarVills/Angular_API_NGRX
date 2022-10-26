@@ -15,10 +15,7 @@ export const productReducer = createReducer(
   // ================================================================================
   on(productActions.successFetchProductACTION, (state: ProductsState, { payload }) =>
   {
-    return {
-      ...state,
-      products: payload
-    }
+    return { ...state, products: payload }
   }),
   // ================================================================================= 
   on(productActions.successAddProductACTION, (state: ProductsState, { payload }) =>
@@ -29,15 +26,13 @@ export const productReducer = createReducer(
       id: payload.id,
       name: payload.name,
       price: payload.price,
-
-      imageLink: payload.imageLink,
+      image_link: payload.image_link,
     }
 
     nextState.push(products)
 
-    return {
-      ...state,
-      products: nextState
-    }
+    return { ...state, products: nextState }
   }),
 );
+
+// export const { selectAll, selectIds } = adapter.getSelectors();
