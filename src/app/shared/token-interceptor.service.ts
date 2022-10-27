@@ -20,7 +20,7 @@ export class TokenInterceptorService implements HttpInterceptor{
     const token = this.handleToken.getToken();
     const TOKEN_HEADER_KEY = 'Authorization';
 
-    if(token != null){
+    if(token){
       tokenizedReq.clone({
         headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
         // {

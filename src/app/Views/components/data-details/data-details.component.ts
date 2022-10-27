@@ -5,6 +5,8 @@ import { SOLUTIONLINKS } from 'src/app/mock-solution-data';
 import { CRUDdataService } from 'src/app/shared/cruddata.service';
 import { DialogData } from '../../dashboard/dashboard.component';
 import { MainPageService } from '../../dashboard/dashboard.service';
+import { Store } from '@ngrx/store';
+import * as productActions from '../../../store/products/product.actions';
 
 @Component({
   selector: 'solution-link-details',
@@ -22,13 +24,16 @@ export class DataDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:DialogData,
     private crudService: CRUDdataService,
-    private mainService: MainPageService,) {}
+    private mainService: MainPageService,
+    private store: Store) {}
 
   ngOnInit(): void {
-
+    console.log(this.data);
   }
   
-  onNoClick = (): void  => this.dialogRef.close(this.dialogRef);
+  onNoClick(): void  {
+    this.dialogRef.close();
+  } 
 
   productForm(){
     this._modifyProductForm = this.formBuilder.group({
@@ -50,21 +55,27 @@ export class DataDetailsComponent implements OnInit {
       }})
   }
   onSubmit(linkData: any){
-    return this.mainService.updateData(
+    this.onNoClick();
+    this.mainService.updateData(
       {
       "name": linkData.name,
       "image_link": linkData.image_link,
       "price": 0,
       "is_published": 0
       }
-    ).subscribe((response)=>{
-      console.log(response)
-      this.onFetchData()});
+    )
+    
+    // .subscribe((response)=>{
+    //   console.log(response)
+    //   this.onFetchData()});
   }
   onDelete(){
-    this.mainService.deleteData().subscribe((response)=>{
-      console.log(response);
-      this.onFetchData()})
+    // this.mainService.deleteData().subscribe((response)=>{
+    //   console.log(response);
+    //   this.onFetchData()})
+    console.log("id in delete", this.mainService.dataID)
+    this.mainService.deleteData();
+    this.onFetchData();
   }
 
   // onUpdate(data:any){

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Product, ProductDTO, Products } from '../products.state';
+import { Product, ProductDTO, Products, UpdateProductDTO } from '../products.state';
 
 // ----------------- Fetch products ------------------ 
 export const requestFetchProductsACTION = createAction(
@@ -12,11 +12,12 @@ export const successFetchProductsACTION = createAction(
 
 // -----------------  Fetch Product -------------------
 export const requestFetchProductACTION = createAction(
-  '[ Products ] Request Fetch Product'
+  '[ Products ] Request Fetch Product',
+  props<{payload: number }>()
 );
 export const successFetchProductACTION = createAction(
   '[ Products ] Success Fetch Product',
-  props<{payload: Product[] }>()
+  props<{payload: ProductDTO }>()
 );
 
 // ------------------ Add Product ---------------------
@@ -32,18 +33,21 @@ export const successAddProductACTION = createAction(
 // ------------------ Delete Product ------------------
 export const requestDeleteProductACTION = createAction(
   '[ Products ] Request Delete Products',
-  props<{payload: Product}>()
+  props<{payload: number}>()
 );
 export const successDeleteProductACTION = createAction(
-  '[ Products ] Success Delete Products'
+  '[ Products ] Success Delete Products',
+
 );
 
 // ------------------ Update Product ------------------
 export const requestUpdateProductACTION = createAction(
-  '[Products] Request Update Products'
+  '[Products] Request Update Products',
+  props<{ id: any, payload: any }>()
 );
 export const successUpdateProductACTION = createAction(
-  '[ Products ] Success Update Products'
+  '[ Products ] Success Update Products',
+  props<{payload: ProductDTO}>()
 );
 
 // ------------------ Failure Product -----------------

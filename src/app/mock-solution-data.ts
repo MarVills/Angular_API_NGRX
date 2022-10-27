@@ -1,3 +1,4 @@
+import { Product } from "./store/products.state";
 export interface Link {
     id: number;
     name: string;
@@ -5,6 +6,6 @@ export interface Link {
     imageLink: string; 
   }
 
-export const SOLUTIONLINKS: Link[] = [
+export const SOLUTIONLINKS: any[] = [
   
 ];

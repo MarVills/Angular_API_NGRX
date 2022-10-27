@@ -12,6 +12,8 @@ import { AddDialogComponent } from '../components/add-dialog/add-dialog.componen
 import { DataDetailsComponent } from '../components/data-details/data-details.component';
 import * as productActions from '../../store/products/product.actions';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectProduct } from 'src/app/store/products/product.selectors';
 
 export interface DialogData {
   name: string;
@@ -34,6 +36,7 @@ export class DashboardComponent implements OnInit {
   solutionLink?: string ;
   links = SOLUTIONLINKS;
   selectedLink?: Link;
+  products$: any = Observable;
 
   constructor(
     public dialog: MatDialog,
@@ -45,6 +48,11 @@ export class DashboardComponent implements OnInit {
     private store: Store) { }
 
   ngOnInit(): void {
+    // this.products$ = this.mainService.fetchData();
+    // this.products$.subscribe((res: any) => {
+    //   console.log('test', res);
+    // })
+    
     this.mainService.fetchDataList()
   }
   gotoFb(page: String){
@@ -83,31 +91,66 @@ export class DashboardComponent implements OnInit {
     });
   }
    openSolutionDetailsDialog(link:any){
-    this.mainService.fetchData(link).subscribe((response)=>{
-      console.log(response);
-    })
-    //  this.mainService.fetchData(link).subscribe(
+    this.mainService.dataID = link.id;
+
+    // this.mainService.fetchData()
+    //  .subscribe(
     //   (response: { id: any; name: any; image_link: any; })=>{
-    //   console.log(response)
+    //   console.log("Old function response: ",response)
     //   this.mainService.dataID = response.id;
-    //   console.log("openning edit dialog");
+    //   console.log("openning edit dialog with id", response.id);
     //   const detailDialogRef = this.dialog.open(DataDetailsComponent, {
     //     data: { name: response.name, solutionLink: response.image_link},
     //   });
-    //    detailDialogRef.afterClosed().subscribe((result) => {
+    //    detailDialogRef.afterClosed().subscribe(() => {
     //     console.log('The dialog was closed');
+    //     this.mainService.fetchDataList();
     //   });
     // });
-  }
 
+    this.store.dispatch(productActions.requestFetchProductACTION({payload: link.id}))
+    this.products$ = this.store.select(selectProduct)
+
+    this.products$.subscribe((response:any) => {
+      console.log(response.selected_product);
+      if(response.selected_product){
+        const detailDialogRef = this.dialog.open(DataDetailsComponent, {
+                data: { name: response.selected_product.name, solutionLink: response.selected_product.image_link},
+              
+              });
+           detailDialogRef.afterClosed().subscribe(() => {
+        console.log('The dialog was closed');
+        this.mainService.fetchDataList();
+      });
+        
+      }
+      
+     
+    });
+
+    // this.mainService.fetchData()
+    // .subscribe((response)=>{
+    //   // console.log(response);
+    //   var value =response.selected_product;
+    //   console.log("this===resss: ", response.selected_product);
+    //   if(response.selected_product){
+    //     console.log('test');
+    //     const detailDialogRef = this.dialog.open(DataDetailsComponent, {
+    //       data: { name: response.selected_product.name, solutionLink: response.selected_product.image_link},
+    //       });
+    //       detailDialogRef.afterClosed().subscribe(() => {
+    //         console.log('The dialog was closed');
+    //         // this.mainService.fetchDataList();
+    //       });
+    //   }
+    // })
+  }
 
   onLogout(){
     this.handleToken.signOut();
     this.headerVisibility.setShow(!this.handleToken.userLoggedIn);
     this.router.navigate(['/login']);
   }
-
-  
 }
 
 

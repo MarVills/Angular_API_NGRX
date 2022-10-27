@@ -12,6 +12,13 @@ export interface ProductDTO {
     image_link?: string, 
 }
 
+export interface UpdateProductDTO {
+    id?: number,
+    name?: string,
+    price?: string,
+    image_link?: string, 
+}
+
 export interface Products {
     products: Product[]
 }
@@ -23,7 +30,9 @@ export interface ProductsDTO {
 export interface ProductsState {
     // products: ProductDTO[],
     products: any,
+    selected_product: any
 }
+
 
 // export interface ProductState {
 //     id?: number,

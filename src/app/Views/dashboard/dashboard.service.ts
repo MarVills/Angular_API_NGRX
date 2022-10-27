@@ -4,9 +4,8 @@ import { CRUDdataService } from '../../shared/cruddata.service';
 import { Store } from '@ngrx/store';
 import * as productActions from '../../store/products/product.actions';
 import { map, Observable, Subscription } from 'rxjs';
-import { Product, Products, ProductsState } from 'src/app/store/products.state';
-import { selectProducts } from 'src/app/store/products/product.selectors';
-
+import { Product, Products, ProductsState, UpdateProductDTO } from 'src/app/store/products.state';
+import { selectProduct, selectProducts } from 'src/app/store/products/product.selectors';
 import { initialState } from '../../store/products/product.reducer'
 
 @Injectable({
@@ -28,8 +27,12 @@ export class MainPageService {
     return this.crudService.addData(data)
   }
 
-  fetchData(data: any){
-    return this.crudService.getData(data.id)
+  fetchData(){
+    // return this.crudService.getData(this.dataID)
+
+    // this.store.dispatch(productActions.requestFetchProductACTION({payload: this.dataID}))
+    // return this.store.select(selectProduct)
+    
   }
 
   fetchDataList(){
@@ -39,13 +42,20 @@ export class MainPageService {
     this.store.select(selectProducts)
       .subscribe(res => {
         if (res.data) {
-          console.log(res.data)
+          console.log(" res",res.data)
+          this.links.splice(0);
+          for (var data of res.data) {
+            // console.log("print data", data )
+            this.links.push(data)
+          }
+
+          // res.forEach(
+          //   (data)=>{
+          //     console.log("print",data)
+          //   }
+          // );
         }
       })
-      
-      
-      
-    
 
     // ===============================================================
     // this.links.splice(0);
@@ -58,10 +68,14 @@ export class MainPageService {
   }
 
   updateData(data: any){
-    return this.crudService.updateData(this.dataID, data)
+    // return this.crudService.updateData(this.dataID, data)
+    return this.store.dispatch(productActions.requestUpdateProductACTION({id: this.dataID, payload: data}));
   }
 
   deleteData(){
-    return this.crudService.deleteData(this.dataID)
+    // return this.crudService.deleteData(this.dataID)
+    if(confirm("Are you sure you want to delete this?")){
+      this.store.dispatch(productActions.requestDeleteProductACTION({payload: this.dataID}));
+    }
   }
 }

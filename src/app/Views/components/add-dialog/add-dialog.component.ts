@@ -66,6 +66,7 @@ export class AddDialogComponent implements OnInit{
       "image_link": value.image_link,
       "price": "0",
     }}))
+    
     this.mainService.fetchDataList();
   }
 }
