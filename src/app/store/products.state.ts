@@ -28,22 +28,11 @@ export interface ProductsDTO {
 }
 
 export interface ProductsState {
-    // products: ProductDTO[],
     products: any,
     selected_product: any
 }
 
 
-// export interface ProductState {
-//     id?: number,
-//     name?: string,
-//     price?: string,
-//     imageLink?: string, 
-// }
-
-// export interface ProductState {
-//     products: ProductDTO[]
-// }
 
 
 

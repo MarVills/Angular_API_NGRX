@@ -19,8 +19,6 @@ export class ProductService {
     private store: Store,
     private crudService: CRUDdataService,) { }
 
-
-
   fetchDataList(){
     this.store.dispatch(productActions.requestFetchProductsACTION({page: this.page}));
     this.store.select(selectProducts)
@@ -28,13 +26,11 @@ export class ProductService {
         var listTotal = res.products.total;
         console.log("data from backend",res)
         console.log("get list total", res.products.total)
-        // console.log("See data", res.products.first_page_url)
         for (var value in res.products.links){
           console.log("get value",res.products.links.indexOf(value))
         }
 
         if (res.products.data) {
-          // this.links.splice(0);
           for (var data of res.products.data) {
             this.links.push(data)
           }
