@@ -21,7 +21,8 @@ export const productReducer = createReducer(
     // console.log('successFetchProductsACTION', payload)
     return { ...state, products: payload }
   }),
-
+  
+  // ================================================================================= 
   on(productActions.successFetchProductACTION, (state: ProductsState, { payload }) =>
   {
     return {

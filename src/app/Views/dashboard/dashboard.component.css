@@ -173,6 +173,37 @@
   background-color: lightblue;
   }
 
+.product-table{
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 50px;
+}
+
+.product-table mat-card, mat-paginator{
+  background-color: #f3fdfe;
+}
+
+
+.action-buttons{
+  margin-left: 15px;
+}
+
+.responsive-table mat-header-cell, mat-cell{
+  text-align: center;
+  justify-content: center;
+}
+
+.responsive-table mat-cell{
+  background-color: #a4c1dd;
+}
+
+.responsive-table mat-header-cell{
+  align-self: center;
+  justify-content: center;
+  background-color: #305981;
+  color: white;
+}
+
 
 
 

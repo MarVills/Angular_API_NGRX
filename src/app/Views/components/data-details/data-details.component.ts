@@ -4,9 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SOLUTIONLINKS } from 'src/app/mock-solution-data';
 import { CRUDdataService } from 'src/app/shared/cruddata.service';
 import { DialogData } from '../../dashboard/dashboard.component';
-import { MainPageService } from '../../dashboard/dashboard.service';
 import { Store } from '@ngrx/store';
 import * as productActions from '../../../store/products/product.actions';
+import { ProductService } from 'src/app/store/products/product.service';
 
 @Component({
   selector: 'solution-link-details',
@@ -24,7 +24,7 @@ export class DataDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:DialogData,
     private crudService: CRUDdataService,
-    private mainService: MainPageService,
+    private productService: ProductService,
     private store: Store) {}
 
   ngOnInit(): void {
@@ -54,9 +54,9 @@ export class DataDetailsComponent implements OnInit {
          console.log(data)
       }})
   }
-  onSubmit(linkData: any){
+  onUpdate(linkData: any){
     this.onNoClick();
-    this.mainService.updateData(
+    this.productService.updateData(
       {
       "name": linkData.name,
       "image_link": linkData.image_link,
@@ -64,28 +64,12 @@ export class DataDetailsComponent implements OnInit {
       "is_published": 0
       }
     )
-    
-    // .subscribe((response)=>{
-    //   console.log(response)
-    //   this.onFetchData()});
   }
   onDelete(){
-    // this.mainService.deleteData().subscribe((response)=>{
-    //   console.log(response);
-    //   this.onFetchData()})
-    console.log("id in delete", this.mainService.dataID)
-    this.mainService.deleteData();
+    console.log("id in delete", this.productService.dataID)
+    this.productService.deleteData();
     this.onFetchData();
   }
-
-  // onUpdate(data:any){
-  //   return this.crudService.updateData(data.id, data).subscribe((response)=>{
-  //     console.log(response)
-  //     this.mainService.fetchDataList()
-      
-  //   });
-  // }
-
   goToLink(data: any){
     if(data.substring(0,11)=="https://www"|| data.substring(0,10)=="http://www" || data.substring(0,7)=="http://" || data.substring(0,8)=="https://"){
       window.location.href = data

@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './Views/authentication/login-page/login-page.component';
 import { RegisterPageComponent } from './Views/authentication/register-page/register-page.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
-// import { SolutionDetailDialog } from './Views/dashboard/dashboard.component';
 import { HeaderVisibility } from './shared/header-visibility.service';
 import { HandleTokenService } from './shared/handle-token.service';
 import { TokenInterceptorService } from './shared/token-interceptor.service';
@@ -30,6 +29,8 @@ import { StoreModule } from '@ngrx/store';
 import * as product from './store/products/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/products/product.effects';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -61,6 +62,8 @@ import { ProductEffects } from './store/products/product.effects';
     ReactiveFormsModule,
     StoreModule.forRoot({ product: product.productReducer }),
     EffectsModule.forRoot([ProductEffects]),
+    MatTableModule,
+    MatPaginatorModule,
   ],
   exports: [],
   providers: [

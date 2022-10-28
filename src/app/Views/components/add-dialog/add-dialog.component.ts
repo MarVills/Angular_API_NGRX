@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { DialogData } from '../../dashboard/dashboard.component';
 // import { Products } from 'src/app/store/products.state';
 import * as productActions from '../../../store/products/product.actions';
-import { MainPageService } from '../../dashboard/dashboard.service';
 import { Product } from 'src/app/store/products.state';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductService } from 'src/app/store/products/product.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class AddDialogComponent implements OnInit{
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private store: Store<{ articles: [any] }>,
-    private mainService: MainPageService,
+    private productServcie: ProductService,
     private formBuilder: FormBuilder,
   ) {}
 
@@ -47,26 +47,7 @@ export class AddDialogComponent implements OnInit{
 
   onSubmit(){
     var value = this._productForm.value;
-
-    // this.mainService.postData({
-    //   "name": value.name,
-    //   "image_link": value.image_link,
-    //   "price": 0,
-    //   "is_published": 0
-    // }).subscribe((result)=>{
-    //   console.log(result)
-    //   this.mainService.fetchDataList();
-    // })
-
-    // linkData.set("price", "0");
-    // console.log("the content of data",linkData);
-
-    this.store.dispatch(productActions.requestAddProductACTION({payload: {
-      "name": value.name,
-      "image_link": value.image_link,
-      "price": "0",
-    }}))
-    
-    this.mainService.fetchDataList();
+    this.productServcie.postData(value);
+    this.productServcie.fetchDataList();
   }
 }

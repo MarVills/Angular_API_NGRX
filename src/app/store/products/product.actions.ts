@@ -3,7 +3,8 @@ import { Product, ProductDTO, Products, UpdateProductDTO } from '../products.sta
 
 // ----------------- Fetch products ------------------ 
 export const requestFetchProductsACTION = createAction(
-  '[Products] Request Fetch Products'
+  '[Products] Request Fetch Products',
+  props<{ page: number }>()
 );
 export const successFetchProductsACTION = createAction(
   '[Products] Success Fetch Products',

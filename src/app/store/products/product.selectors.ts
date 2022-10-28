@@ -11,7 +11,17 @@ export const selectProductsFeatureState = createFeatureSelector<any>('product');
 // ==================== Select Product list ==================================
 export const selectProducts = createSelector(
     selectProductsFeatureState,
-    (state: ProductsState) => state.products
+    (state: ProductsState) => {
+        var value = state.products
+        // console.log("State",state)
+        // console.log("Products",state.products.last_page_url)
+        // console.log("Links", value)
+        for(var val in value){
+            val
+            // console.log(val);
+        }
+        return state
+    }
 )
 
 // ==================== Select single product ================================

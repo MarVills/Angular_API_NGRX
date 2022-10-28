@@ -6,7 +6,7 @@ import { catchError, mergeMap, Observable, of, switchMap } from 'rxjs';
 import { HandleTokenService } from 'src/app/shared/handle-token.service';
 import { Product, ProductDTO } from '../products.state';
 import * as productActions from './product.actions';
-import { MainPageService } from 'src/app/Views/dashboard/dashboard.service';
+import { ProductService } from './product.service';
 
 
 @Injectable()
@@ -16,19 +16,19 @@ export class ProductEffects {
     private actions$: Actions,
     private handleToken: HandleTokenService,
     private http: HttpClient,
-    private mainServcie: MainPageService) {}
+    private productService: ProductService) {}
 
   config = {
     headers: new HttpHeaders({
       'Authorization': 'Bearer '+this.handleToken.getToken(),
-      // 'Content-Type': 'application/json',
     })
   }
 
   fetchProductsEFFECT$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(productActions.requestFetchProductsACTION),
     mergeMap(res =>{
-      return this.http.get<any>(`/api/products`, this.config).pipe(
+      console.log("whats inside res", res.page)
+      return this.http.get<any>(`/api/products?page=${res.page.toString()}`, this.config).pipe(
           switchMap((data: any) => {
             console.log('effect', data.data)
             return [
@@ -62,12 +62,10 @@ export class ProductEffects {
 
   addProductEFFECT$: Observable<Action> = createEffect(() => { 
     return this.actions$.pipe(
-      // ============== Grouped Functions By Pipe ==============
       ofType(productActions.requestAddProductACTION),
       mergeMap(action =>{
         console.log("action payload ",action.payload)
         return this.http.post<Product>('/api/products', action.payload, this.config).pipe(
-            // ============== Grouped Functions By Pipe ========================= 
             switchMap((data: ProductDTO) => [
               productActions.successAddProductACTION({ payload: data })
             ]),
@@ -75,18 +73,16 @@ export class ProductEffects {
               console.log("handle error", error);
               return of(productActions.onProductFailure({ error: error }));
             })
-            // ==================================================================
           )
         }
       )
-      // =======================================================
     )}
   );
 
   updateArticleActionEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(productActions.requestUpdateProductACTION),
     mergeMap(action => {
-      return this.http.put<Product>(`/api/products/${this.mainServcie.dataID}`, action.payload, this.config).pipe(
+      return this.http.put<Product>(`/api/products/${this.productService.dataID}`, action.payload, this.config).pipe(
           switchMap((data: ProductDTO) => [
             productActions.successUpdateProductACTION({ payload: data })
           ]),
@@ -102,7 +98,7 @@ export class ProductEffects {
     ofType(productActions.requestDeleteProductACTION),
     mergeMap(data =>{
       console.log("supposed to be id",data.type);
-      return this.http.delete<number>(`/api/products/${this.mainServcie.dataID}`, this.config).pipe(
+      return this.http.delete<number>(`/api/products/${this.productService.dataID}`, this.config).pipe(
           switchMap(res => [
             productActions.successDeleteProductACTION()
           ]),

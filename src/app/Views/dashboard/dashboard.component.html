@@ -36,7 +36,8 @@
             <mat-icon>add</mat-icon>
           </button>
         </div>
-       <div class="center-items">
+      <!-- =========================================================== -->
+       <!-- <div class="center-items">
         <ul class="heroes">
           <li *ngFor="let link of links">
             <button [class.selected]="link === selectedLink" (click)="openSolutionDetailsDialog(link)" type="button">
@@ -45,6 +46,57 @@
             </button>
           </li>
         </ul>
-       </div>
+       </div> -->
+       <!-- =========================================================== -->
+
+        <div *ngIf="links.length != 0" class="product-table" fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-card>
+              <mat-card-content>
+                <mat-card-title>Products</mat-card-title>
+                <div class="responsive-table">
+                  <mat-table #table [dataSource]="dataSource">
+        
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id">
+                      <mat-header-cell *matHeaderCellDef> <h2>ID.</h2> </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+        
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <mat-header-cell *matHeaderCellDef> <h2>Product Name</h2> </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+        
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="image">
+                      <mat-header-cell *matHeaderCellDef> <h2>Image</h2> </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.image_link}} </mat-cell>
+                    </ng-container>
+        
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="actions">
+                      <mat-header-cell *matHeaderCellDef> <h2>Actions</h2> </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> 
+                        <!-- <button (click)=" openSolutionDetailsDialog(element)">Edit</button> -->
+                        <button class="action-buttons" mat-raised-button color="primary" (click)=" openSolutionDetailsDialog(element)">Edit</button>
+                        <button class="action-buttons" mat-raised-button color="warn" (click)="onDelete(element)">Delete</button>
+                      </mat-cell>
+                    </ng-container>
+        
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                   <mat-row 
+                      *matRowDef="let row; 
+                      columns: displayedColumns;" ></mat-row>
+                  </mat-table>
+        
+                  <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+                  </mat-paginator>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
       </mat-drawer-container>
 </div>

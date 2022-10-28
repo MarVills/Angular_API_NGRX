@@ -1,22 +1,22 @@
 
 export interface Product {
     id?: number,
-    name?: string,
-    price?: string,
-    image_link?: string, 
+    name: string,
+    price: string,
+    image_link: string, 
 }
 export interface ProductDTO {
     id?: number,
-    name?: string,
-    price?: string,
-    image_link?: string, 
+    name: string,
+    price: string,
+    image_link: string, 
 }
 
 export interface UpdateProductDTO {
     id?: number,
-    name?: string,
-    price?: string,
-    image_link?: string, 
+    name: string,
+    price: string,
+    image_link: string, 
 }
 
 export interface Products {

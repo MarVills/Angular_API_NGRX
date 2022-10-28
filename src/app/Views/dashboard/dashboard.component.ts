@@ -1,19 +1,21 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SOLUTIONLINKS } from '../../mock-solution-data';
 import { Link } from '../../mock-solution-data';
 import { CRUDdataService } from '../../shared/cruddata.service';
-import { MainPageService } from './dashboard.service';
 import { HeaderVisibility } from '../../shared/header-visibility.service';
 import { Router } from '@angular/router';
 import { HandleTokenService } from '../../shared/handle-token.service';
 import { AddDialogComponent } from '../components/add-dialog/add-dialog.component';
 import { DataDetailsComponent } from '../components/data-details/data-details.component';
-import * as productActions from '../../store/products/product.actions';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectProduct } from 'src/app/store/products/product.selectors';
+import { Observable, take } from 'rxjs';
+import { ProductService } from 'src/app/store/products/product.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatPaginator } from '@angular/material/paginator';
+import { Product } from 'src/app/store/products.state';
 
 export interface DialogData {
   name: string;
@@ -37,15 +39,27 @@ export class DashboardComponent implements OnInit {
   links = SOLUTIONLINKS;
   selectedLink?: Link;
   products$: any = Observable;
+  // ===========================================
+  displayedColumns = ['id', 'name', 'image', 'actions'];
+    dataSource = new MatTableDataSource<Product>(SOLUTIONLINKS);
 
   constructor(
     public dialog: MatDialog,
     private crudService: CRUDdataService , 
-    private mainService: MainPageService,
     public headerVisibility: HeaderVisibility, 
     private router: Router,
     private handleToken: HandleTokenService,
-    private store: Store) { }
+    private store: Store,
+    private productService: ProductService,
+    private breakpointObserver: BreakpointObserver) {
+      breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+        this.displayedColumns = result.matches ?
+            ['id', 'name', 'image', 'actions'] :
+            ['id', 'name', 'image', 'actions'];
+        });
+     }
+     
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
   ngOnInit(): void {
     // this.products$ = this.mainService.fetchData();
@@ -53,7 +67,7 @@ export class DashboardComponent implements OnInit {
     //   console.log('test', res);
     // })
     
-    this.mainService.fetchDataList()
+    this.productService.fetchDataList()
   }
   gotoFb(page: String){
     switch (page) {
@@ -90,66 +104,42 @@ export class DashboardComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-   openSolutionDetailsDialog(link:any){
-    this.mainService.dataID = link.id;
 
-    // this.mainService.fetchData()
-    //  .subscribe(
-    //   (response: { id: any; name: any; image_link: any; })=>{
-    //   console.log("Old function response: ",response)
-    //   this.mainService.dataID = response.id;
-    //   console.log("openning edit dialog with id", response.id);
-    //   const detailDialogRef = this.dialog.open(DataDetailsComponent, {
-    //     data: { name: response.name, solutionLink: response.image_link},
-    //   });
-    //    detailDialogRef.afterClosed().subscribe(() => {
-    //     console.log('The dialog was closed');
-    //     this.mainService.fetchDataList();
-    //   });
-    // });
+  openSolutionDetailsDialog(data:any){
+    this.productService.dataID = data.id;
+    console.log("opened times ===============")
 
-    this.store.dispatch(productActions.requestFetchProductACTION({payload: link.id}))
-    this.products$ = this.store.select(selectProduct)
-
-    this.products$.subscribe((response:any) => {
-      console.log(response.selected_product);
-      if(response.selected_product){
-        const detailDialogRef = this.dialog.open(DataDetailsComponent, {
-                data: { name: response.selected_product.name, solutionLink: response.selected_product.image_link},
-              
-              });
-           detailDialogRef.afterClosed().subscribe(() => {
-        console.log('The dialog was closed');
-        this.mainService.fetchDataList();
+    this.productService.fetchData()
+     .subscribe(
+      (response: { id: any; name: any; image_link: any; })=>{
+      console.log("Old function response: ",response)
+      this.productService.dataID = response.id;
+      console.log("openning edit dialog with id", response.id);
+      const detailDialogRef = this.dialog.open(DataDetailsComponent, {
+        data: { name: response.name, solutionLink: response.image_link},
       });
-        
-      }
-      
-     
+       detailDialogRef.afterClosed().subscribe(() => {
+        console.log('The dialog was closed');
+        this.productService.fetchDataList();
+      });
     });
+  }
 
-    // this.mainService.fetchData()
-    // .subscribe((response)=>{
-    //   // console.log(response);
-    //   var value =response.selected_product;
-    //   console.log("this===resss: ", response.selected_product);
-    //   if(response.selected_product){
-    //     console.log('test');
-    //     const detailDialogRef = this.dialog.open(DataDetailsComponent, {
-    //       data: { name: response.selected_product.name, solutionLink: response.selected_product.image_link},
-    //       });
-    //       detailDialogRef.afterClosed().subscribe(() => {
-    //         console.log('The dialog was closed');
-    //         // this.mainService.fetchDataList();
-    //       });
-    //   }
-    // })
+  async onDelete(data:any){
+    await (this.productService.dataID = data.id);
+    this.productService.deleteData();
+    this.productService.fetchData();
   }
 
   onLogout(){
     this.handleToken.signOut();
     this.headerVisibility.setShow(!this.handleToken.userLoggedIn);
     this.router.navigate(['/login']);
+  }
+
+  // ====================================================
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 }
 
