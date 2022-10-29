@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './views/authentication/login-page/login-page.component';
 import { RegisterPageComponent } from './views/authentication/register-page/register-page.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
-import { HeaderVisibility } from './shared/header-visibility.service';
 import { HandleTokenService } from './shared/handle-token.service';
 import { TokenInterceptorService } from './shared/token-interceptor.service';
 import { AuthGuardService } from './shared/auth.service';
@@ -69,7 +68,6 @@ import { ErrorComponent } from './views/error/error.component';
   ],
   exports: [],
   providers: [
-    HeaderVisibility, 
     HandleTokenService,
     // AuthGuardService,
     // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }

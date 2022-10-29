@@ -25,7 +25,6 @@ export class AuthService {
 export class AuthGuardService implements CanActivate {
 
   constructor(private handleToken: HandleTokenService){}
-  // userLoggedIn = this.handleToken.userLoggedIn;
   userLoggedIn = true;
   canActivate() {
     if (this.userLoggedIn) {

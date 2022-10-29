@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { RegisterService } from './register.service';
 import { Router} from '@angular/router';
 import { HandleTokenService } from 'src/app/shared/handle-token.service';
-import { HeaderVisibility } from 'src/app/shared/header-visibility.service';
 
 @Component({
   selector: 'app-register-page',
@@ -19,7 +18,7 @@ export class RegisterPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private handleToken: HandleTokenService,
     private router: Router,
-    private headerVisibility: HeaderVisibility) { }
+    ) { }
 
   ngOnInit(): void {this.registerForm()}
  
@@ -41,7 +40,6 @@ export class RegisterPageComponent implements OnInit {
       },
       error: (error) => console.log("REGISTER ERROR: "+error),
       complete:()=> {
-        this.headerVisibility.setShow(this.handleToken.userLoggedIn)
         this.router.navigate(['/dashboard'])
       }
     }).unsubscribe;

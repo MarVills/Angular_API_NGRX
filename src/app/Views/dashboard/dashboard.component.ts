@@ -1,21 +1,19 @@
-import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
-import { faFilm, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-// import { SOLUTIONLINKS } from '../../mock-solution-data';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
 import { CRUDdataService } from '../../shared/cruddata.service';
-import { HeaderVisibility } from '../../shared/header-visibility.service';
 import { Router } from '@angular/router';
 import { HandleTokenService } from '../../shared/handle-token.service';
 import { AddDialogComponent } from '../components/add-dialog/add-dialog.component';
 import { DataDetailsComponent } from '../components/data-details/data-details.component';
-import { select, Store } from '@ngrx/store';
-import { debounceTime, Observable, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { debounceTime, Observable } from 'rxjs';
 import { ProductService } from 'src/app/store/products/product.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatPaginator } from '@angular/material/paginator';
 import { Product, PRODUCT_LIST } from 'src/app/store/products.state';
-import { debounce } from 'lodash';
+
 
 export interface DialogData {
   name: string;
@@ -48,7 +46,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private crudService: CRUDdataService , 
-    public headerVisibility: HeaderVisibility, 
     private router: Router,
     private handleToken: HandleTokenService,
     private store: Store,
@@ -131,14 +128,12 @@ export class DashboardComponent implements OnInit {
 
   onLogout(){
     this.handleToken.signOut();
-    this.headerVisibility.setShow(!this.handleToken.userLoggedIn);
     this.router.navigate(['/login']);
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-
 
   previous(){
     console.log("previous")

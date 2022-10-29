@@ -223,6 +223,14 @@
   background-color: lightblue;
 }
 
+.pagination-button span{
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  line-height: normal;
+
+}
+
 .pagination-button:hover{
   background-color: #a4c1dd;
   cursor: pointer;
