@@ -1,8 +1,7 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
+import { faFilm, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { SOLUTIONLINKS } from '../../mock-solution-data';
-import { Link } from '../../mock-solution-data';
+// import { SOLUTIONLINKS } from '../../mock-solution-data';
 import { CRUDdataService } from '../../shared/cruddata.service';
 import { HeaderVisibility } from '../../shared/header-visibility.service';
 import { Router } from '@angular/router';
@@ -10,12 +9,13 @@ import { HandleTokenService } from '../../shared/handle-token.service';
 import { AddDialogComponent } from '../components/add-dialog/add-dialog.component';
 import { DataDetailsComponent } from '../components/data-details/data-details.component';
 import { select, Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { debounceTime, Observable, take } from 'rxjs';
 import { ProductService } from 'src/app/store/products/product.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatPaginator } from '@angular/material/paginator';
-import { Product } from 'src/app/store/products.state';
+import { Product, PRODUCT_LIST } from 'src/app/store/products.state';
+import { debounce } from 'lodash';
 
 export interface DialogData {
   name: string;
@@ -36,12 +36,14 @@ export class DashboardComponent implements OnInit {
   filmIcon = faFilm;
   name?: string ;
   solutionLink?: string ;
-  links = SOLUTIONLINKS;
-  selectedLink?: Link;
+  links = PRODUCT_LIST;
   products$: any = Observable;
-  // ===========================================
+ 
   displayedColumns = ['id', 'name', 'image', 'actions'];
-    dataSource = new MatTableDataSource<Product>(SOLUTIONLINKS);
+   dataSource = new MatTableDataSource<Product>(PRODUCT_LIST);
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
+
 
   constructor(
     public dialog: MatDialog,
@@ -59,16 +61,15 @@ export class DashboardComponent implements OnInit {
         });
      }
      
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
+  
+
+  @Input()
+  hidePageSize!: boolean;
 
   ngOnInit(): void {
-    // this.products$ = this.mainService.fetchData();
-    // this.products$.subscribe((res: any) => {
-    //   console.log('test', res);
-    // })
-    
     this.productService.fetchDataList()
   }
+
   gotoFb(page: String){
     switch (page) {
       case 'facebook':
@@ -98,7 +99,6 @@ export class DashboardComponent implements OnInit {
     const addSolutionDialogRef = this.dialog.open(AddDialogComponent, {
       width: '250px',
       data: {prob: this.name, sol: this.solutionLink},
-    
     });
     addSolutionDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -107,8 +107,6 @@ export class DashboardComponent implements OnInit {
 
   openSolutionDetailsDialog(data:any){
     this.productService.dataID = data.id;
-    console.log("opened times ===============")
-
     this.productService.fetchData()
      .subscribe(
       (response: { id: any; name: any; image_link: any; })=>{
@@ -137,9 +135,21 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // ====================================================
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+
+  previous(){
+    console.log("previous")
+    this.productService.fetchDataList("previous")
+  }
+
+   next(){
+    console.log("next")
+    this.productService.fetchDataList("next")
+    debounceTime(1000)
+    this.ngAfterViewInit();
   }
 }
 

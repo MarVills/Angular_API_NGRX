@@ -25,7 +25,8 @@ export class ProductEffects {
   fetchProductsEFFECT$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(productActions.requestFetchProductsACTION),
     mergeMap(res =>{
-      console.log("whats inside res", res.page)
+      console.log("whats inside res", res)
+      console.log("curent page", res.page)
       return this.http.get<any>(`/api/products?page=${res.page.toString()}`, this.config).pipe(
         switchMap((data: any) => {
           console.log('effect', data.data)

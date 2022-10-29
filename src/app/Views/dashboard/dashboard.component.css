@@ -186,6 +186,7 @@
 
 .action-buttons{
   margin-left: 15px;
+  float: center;
 }
 
 .responsive-table mat-header-cell, mat-cell{
@@ -202,6 +203,29 @@
   justify-content: center;
   background-color: #305981;
   color: white;
+}
+
+.pagination{
+  width: 100%;
+  right:-1px;
+  /* left: 0px; */
+  /* margin-left: auto; */
+  display: flex;
+  /* position:relative; */
+  justify-content: end;
+}
+.pagination-button{
+  margin: 20px;
+  min-width: 100px;
+  min-height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightblue;
+}
+
+.pagination-button:hover{
+  background-color: #a4c1dd;
+  cursor: pointer;
 }
 
 

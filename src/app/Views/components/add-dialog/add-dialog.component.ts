@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+// import { DialogData } from 'dashboard/dashboard.component';
 import { DialogData } from '../../dashboard/dashboard.component';
 // import { Products } from 'src/app/store/products.state';
 import * as productActions from '../../../store/products/product.actions';

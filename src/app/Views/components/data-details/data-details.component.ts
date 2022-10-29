@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SOLUTIONLINKS } from 'src/app/mock-solution-data';
+// import { SOLUTIONLINKS } from 'src/app/mock-solution-data';
 import { CRUDdataService } from 'src/app/shared/cruddata.service';
 import { DialogData } from '../../dashboard/dashboard.component';
 import { Store } from '@ngrx/store';
 import * as productActions from '../../../store/products/product.actions';
 import { ProductService } from 'src/app/store/products/product.service';
+import { PRODUCT_LIST } from 'src/app/store/products.state';
 
 @Component({
   selector: 'solution-link-details',
@@ -15,7 +16,7 @@ import { ProductService } from 'src/app/store/products/product.service';
 })
 export class DataDetailsComponent implements OnInit {
   
-  links = SOLUTIONLINKS;
+  links = PRODUCT_LIST;
   openDialog: any;
   _modifyProductForm!: FormGroup;
 
@@ -54,6 +55,7 @@ export class DataDetailsComponent implements OnInit {
          console.log(data)
       }})
   }
+  
   onUpdate(linkData: any){
     this.onNoClick();
     this.productService.updateData(
@@ -65,11 +67,13 @@ export class DataDetailsComponent implements OnInit {
       }
     )
   }
+
   onDelete(){
     console.log("id in delete", this.productService.dataID)
     this.productService.deleteData();
     this.onFetchData();
   }
+
   goToLink(data: any){
     if(data.substring(0,11)=="https://www"|| data.substring(0,10)=="http://www" || data.substring(0,7)=="http://" || data.substring(0,8)=="https://"){
       window.location.href = data

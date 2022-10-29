@@ -32,6 +32,11 @@ export interface ProductsState {
     selected_product: any
 }
 
+export const PRODUCT_LIST: Product[] = [
+  
+];
+
+
 
 
 
