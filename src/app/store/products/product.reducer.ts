@@ -16,7 +16,6 @@ export const productReducer = createReducer(
 
   on(productActions.successFetchProductsACTION, (state: ProductsState, { payload }) =>{
     let oldState = cloneDeep(state.products)
-
     return { 
       ...state, 
       products: payload }
@@ -40,17 +39,21 @@ export const productReducer = createReducer(
   }),
 
   on(productActions.requestUpdateProductACTION, (state: ProductsState, { payload }) =>{
-    console.log(state);
+    // console.log(state);
     const updateProduct = [state.products].map((product:any)=> {
       return payload === product.id ? payload : product;
     })
-    return { ...state, products: updateProduct, selected_product: '' };
+    var returnState = { ...state, products: updateProduct, selected_product: '' }
+    console.log("request state", returnState)
+    return returnState;
   }),
 
   on(productActions.requestDeleteProductACTION, (state: ProductsState, { payload }) =>{
     let newState = [state.products];
     newState.splice(payload, 1);
-    return { ...state, products: newState };
+    var returnState = { ...state, products: newState }
+    // console.log()
+    return returnState;
   }),
 );
 

@@ -75,7 +75,7 @@
                       <mat-header-cell *matHeaderCellDef> <h2>Actions</h2> </mat-header-cell>
                       <mat-cell *matCellDef="let element"> 
 
-                        <button class="action-buttons" mat-raised-button color="primary" (click)=" openSolutionDetailsDialog(element)">Edit</button>
+                        <button class="action-buttons" mat-raised-button color="primary" (click)=" editProduct(element)">Edit</button>
                         <button class="action-buttons" mat-raised-button color="warn" (click)="onDelete(element)">Delete</button>
                       
                       </mat-cell>
@@ -92,6 +92,9 @@
 
                   <div class="pagination">
                     <button class="pagination-button" (click)="previous()"> <span>&laquo;</span> Previous</button>
+                    <div *ngFor="let page of pages; let i = index">
+                      <div class="pages" (click)="getPage(page)">{{page}}</div>
+                    </div>
                     <button class="pagination-button" (click)="next()">Next <span>&raquo;</span> </button>
                   </div>
                   

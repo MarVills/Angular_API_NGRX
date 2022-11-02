@@ -1,6 +1,4 @@
-/* .main-container{
-      
-} */
+
 .center-items{
     display: flex;
     justify-content: center;
@@ -16,7 +14,6 @@
   
   .example-sidenav-content {
     display: flex;
-    /* height: 100%; */
     align-items: left;
     justify-content: left;
   }
@@ -26,8 +23,6 @@
   }
 
   .text-field {
-    /* min-width: 300px;
-    max-width: 700px; */
     width: 100%;
   }
 
@@ -40,6 +35,7 @@
     transform: scale(1);
     background-color: #125699;
     color: white;
+    z-index: 100;
   }
 
   .menu_button{
@@ -53,7 +49,6 @@
     color: white;
   }
 
-  /* HeroesComponent's private CSS styles */
 .heroes {
   margin: 0 0 2em 0;
   list-style-type: none;
@@ -78,7 +73,6 @@
   align-items: stretch;
   height: 2.8em;
   border: none;
-  /* padding: 10px; */
 }
 
 .heroes button:hover {
@@ -208,11 +202,10 @@
 .pagination{
   width: 100%;
   right:-1px;
-  /* left: 0px; */
-  /* margin-left: auto; */
   display: flex;
-  /* position:relative; */
-  justify-content: end;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
 }
 .pagination-button{
   margin: 20px;
@@ -235,6 +228,73 @@
   background-color: #a4c1dd;
   cursor: pointer;
 }
+
+.pages{
+  margin-inline: 10px;
+}
+
+.pages:hover{
+  cursor: pointer;
+  color: lightblue;
+}
+
+@media all and (max-width: 300px)  {  
+  body  { font-size:0.6em;  } 
+  h2    { font-size:0.8em;  }
+}
+
+@media all and (max-width: 390px)  {  
+  body  { font-size:0.6em;  } 
+  h2    { font-size:0.8em;  }
+}
+
+/* @media all and (max-width: 400px)  {  
+  body  { font-size:0.8em;  } 
+  h2    { font-size:0.8em;  }
+}
+@media all and (max-width: 500px)  {  
+  body  { font-size:1.0em;  } 
+}
+@media all and (max-width: 600px)  {  
+  body  { font-size:1.2em;  } 
+} */
+
+/* @media all and (max-width: 700px)  {  
+  body  { font-size:1.4em;  } 
+}
+@media all and (max-width: 800px)  {  
+  body  { font-size:1.6em;  } 
+}
+@media all and (max-width: 900px)  {  
+  body  { font-size:1.8em;  } 
+}
+@media all and (max-width: 1000px) {  
+  body  { font-size:2.0em;  } 
+}
+@media all and (max-width: 1100px) {  
+  body  { font-size:2.2em;  } 
+}
+@media all and (max-width: 1200px) {  
+  body  { font-size:2.4em;  } 
+}
+@media all and (max-width: 1300px) {  
+  body  { font-size:2.6em;  } 
+}
+@media all and (max-width: 1400px) {  
+  body  { font-size:2.8em;  } 
+}
+@media all and (max-width: 1500px) {  
+  body  { font-size:3.0em;  } 
+}
+@media all and (max-width: 1500px) {  
+  body  { font-size:3.2em;  } 
+}
+@media all and (max-width: 1600px) {  
+  body  { font-size:3.4em;  } 
+}
+@media all and (max-width: 1700px) {  
+  body  { font-size:3.6em;  } 
+} */
 
 
 

@@ -20,7 +20,7 @@ import { LoginPageComponent } from './views/authentication/login-page/login-page
 import { RegisterPageComponent } from './views/authentication/register-page/register-page.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { HandleTokenService } from './shared/handle-token.service';
-import { TokenInterceptorService } from './shared/token-interceptor.service';
+// import { TokenInterceptorService } from './shared/token-interceptor.service';
 import { AuthGuardService } from './shared/auth.service';
 import { AddDialogComponent } from './views/components/add-dialog/add-dialog.component';
 import { DataDetailsComponent } from './views/components/data-details/data-details.component';
@@ -31,6 +31,7 @@ import { ProductEffects } from './store/products/product.effects';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ErrorComponent } from './views/error/error.component';
+import { TokenInterceptor } from './shared/token.interceptor';
 
 
 
@@ -68,9 +69,9 @@ import { ErrorComponent } from './views/error/error.component';
   ],
   exports: [],
   providers: [
-    HandleTokenService,
+    // HandleTokenService,
     // AuthGuardService,
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -48,7 +48,6 @@ export class AddDialogComponent implements OnInit{
 
   onSubmit(){
     var value = this._productForm.value;
-    this.productServcie.postData(value);
-    this.productServcie.fetchDataList();
+    this.productServcie.addProduct(value);
   }
 }

@@ -25,7 +25,7 @@ export class DataDetailsComponent implements OnInit {
     private store: Store) {}
 
   ngOnInit(): void {
-    console.log(this.data);
+    // console.log(this.data);
   }
   
   onNoClick(): void  {
@@ -43,7 +43,6 @@ export class DataDetailsComponent implements OnInit {
   }
   
   onUpdate(linkData: any){
-    this.onNoClick();
     this.productService.updateData(
       {
       "name": linkData.name,

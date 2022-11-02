@@ -36,9 +36,10 @@ export class DashboardComponent implements OnInit {
   solutionLink?: string ;
   links = PRODUCT_LIST;
   products$: any = Observable;
+  pages = this.productService.pages;
  
   displayedColumns = ['id', 'name', 'image', 'actions'];
-   dataSource = new MatTableDataSource<Product>(PRODUCT_LIST);
+  dataSource = new MatTableDataSource<Product>(PRODUCT_LIST);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
@@ -58,10 +59,8 @@ export class DashboardComponent implements OnInit {
         });
      }
      
-  
-
-  @Input()
-  hidePageSize!: boolean;
+  // @Input()
+  // hidePageSize!: boolean;
 
   ngOnInit(): void {
     this.productService.fetchDataList()
@@ -92,38 +91,37 @@ export class DashboardComponent implements OnInit {
           break;
     }
   }
+ 
   openAddSolutionDialog(): void {
     const addSolutionDialogRef = this.dialog.open(AddDialogComponent, {
       width: '250px',
       data: {prob: this.name, sol: this.solutionLink},
     });
     addSolutionDialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.refresh()
     });
   }
 
-  openSolutionDetailsDialog(data:any){
+  editProduct(data:any){
     this.productService.dataID = data.id;
     this.productService.fetchData()
      .subscribe(
       (response: { id: any; name: any; image_link: any; })=>{
-      console.log("Old function response: ",response)
       this.productService.dataID = response.id;
-      console.log("openning edit dialog with id", response.id);
       const detailDialogRef = this.dialog.open(DataDetailsComponent, {
         data: { name: response.name, solutionLink: response.image_link},
       });
        detailDialogRef.afterClosed().subscribe(() => {
-        console.log('The dialog was closed');
-        this.productService.fetchDataList();
+        this.refresh();
       });
     });
   }
 
   async onDelete(data:any){
     await (this.productService.dataID = data.id);
-    this.productService.deleteData();
-    this.productService.fetchData();
+    await this.productService.deleteData();
+    console.log("====after delete")
+    this.refresh();
   }
 
   onLogout(){
@@ -146,6 +144,16 @@ export class DashboardComponent implements OnInit {
     debounceTime(1000)
     this.ngAfterViewInit();
   }
+
+  getPage(page: number){
+    console.log("page number",page)
+    this.productService.fetchDataList("",page)
+  }
+
+  refresh(){
+    this.dataSource = new MatTableDataSource<Product>(PRODUCT_LIST);
+  }
+
 }
 
 
