@@ -16,8 +16,8 @@
          <div class="center-items">
             <h1>Solution Links</h1><br><br>
         </div>
-        <div class="center-items">
-            <h3>Click the button on the left side to show sidebar to navigate in to different social sites.</h3>
+        <div class="center-items description">
+            <p>Click the button on the left side to show sidebar to navigate in to different social sites.</p>
         </div>
         <mat-drawer #drawer class="example-sidenav" mode="side">
           <p>Route to Different Pages</p>
@@ -49,7 +49,8 @@
        </div> -->
        <!-- =========================================================== -->
 
-        <div *ngIf="links.length != 0" class="product-table" fxLayout="row wrap">
+       <!-- <div class="center-items"> -->
+        <div *ngIf="links.length != 0" class="product-table" fxLayout="row wrap" >
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <mat-card>
               <mat-card-content>
@@ -58,21 +59,21 @@
                   <mat-table #table [dataSource]="dataSource">
         
                     <ng-container matColumnDef="id">
-                      <mat-header-cell *matHeaderCellDef> <h2>ID.</h2> </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> <h4>ID.</h4> </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
                     </ng-container>
         
                     <ng-container matColumnDef="name">
-                      <mat-header-cell *matHeaderCellDef> <h2>Product Name</h2> </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> <h4>Product Name</h4> </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                     </ng-container>
         
                     <ng-container matColumnDef="image">
-                      <mat-header-cell *matHeaderCellDef> <h2>Image</h2> </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> <h4>Image</h4> </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.image_link}} </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="actions">
-                      <mat-header-cell *matHeaderCellDef> <h2>Actions</h2> </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> <h4>Actions</h4> </mat-header-cell>
                       <mat-cell *matCellDef="let element"> 
 
                         <button class="action-buttons" mat-raised-button color="primary" (click)=" editProduct(element)">Edit</button>
@@ -138,5 +139,6 @@
             </mat-card>
           </div>
         </div>
+       <!-- </div> -->
       </mat-drawer-container>
 </div>

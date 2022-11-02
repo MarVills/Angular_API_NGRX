@@ -3,23 +3,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: flex-start;
-    position: static;
+    /* position: static; */
+    /* align-content: center; */
 }
 .example-container {
     width:  130vw;
     height: 91vh;
     border: none;
   }
+
+  /* .mat-drawer-content{
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+  } */
   
   .example-sidenav-content {
     display: flex;
     align-items: left;
-    justify-content: left;
+    justify-content: center;
   }
   
   .example-sidenav {
     padding: 20px;
+    z-index: 100;
   }
 
   .text-field {
@@ -42,90 +50,14 @@
     position:absolute;
     top: 0;
     left: 0;
-    margin-left: 30px;
-    margin-top: 30px;
+    margin-left: 20px;
+    margin-top: 25px;
     transform: scale(1);
     background-color: #125699;
     color: white;
   }
 
-.heroes {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 30em;
-}
 
-.heroes li {
-  display: flex;
-}
-
-.heroes button {
-  flex: 1;
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: 0;
-  border-radius: 4px;
-  display: flex;
-  align-items: stretch;
-  height: 2.8em;
-  border: none;
-}
-
-.heroes button:hover {
-  color: #2c3a41;
-  background-color: #e6e6e6;
-  left: .1em;
-}
-
-.heroes button:active {
-  background-color: #525252;
-  color: #fafafa;
-}
-
-.heroes button.selected {
-  background-color: black;
-  color: white;
-}
-
-.heroes button.selected:hover {
-  background-color: #505050;
-  color: white;
-}
-
-.heroes button.selected:active {
-  background-color: black;
-  color: white;
-}
-
-.heroes .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #405061;
-  line-height: 1em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
-}
-
-.heroes .name {
-  align-self: center;
-}
-.heroes .action-button {
-  width:100px;
-  align-self: center;
-  align-items: center;
-  background-color: green;
-  padding: 20px;
-}
-
-.goto-link-button{
-  width: 100%;
-}
 
 .toolbar {
   position: absolute;
@@ -138,6 +70,17 @@
   background-color: #1976d2;
   color: white;
   font-weight: 600;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.description{
+  /* margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 40px; */
+  margin: 40px 20px 0px 30px;
+  justify-content: stretch;
+  font-size: 10;
 }
 
 .content {
@@ -148,6 +91,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .spacer {
   flex: 1;
 }
@@ -155,7 +99,7 @@
 .appbar_buttons button{
   color: white;
   background-color: #DD0031;
-  padding: 5px 50px;
+  padding: 5px 25px;
   margin: 20px 10px;
   border-width: 0px;
   border-radius: 10px;
@@ -171,6 +115,7 @@
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 50px;
+  /* max-width: 800px; */
 }
 
 .product-table mat-card, mat-paginator{
@@ -186,6 +131,10 @@
 .responsive-table mat-header-cell, mat-cell{
   text-align: center;
   justify-content: center;
+}
+
+.responsive-table mat-header-cell mat-cell{
+  font-size: 5px;
 }
 
 .responsive-table mat-cell{
