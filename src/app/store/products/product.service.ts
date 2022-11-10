@@ -80,9 +80,9 @@ export class ProductService implements OnDestroy {
     }):null
     
 
-    setTimeout(() => {
-      console.log(this.dataID)
-    }, 3000);
+    // setTimeout(() => {
+    //   console.log(this.dataID)
+    // }, 3000);
   } 
   
   fetchData = () => this.crudService.getData(this.dataID);

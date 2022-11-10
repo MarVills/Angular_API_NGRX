@@ -15,7 +15,7 @@ export const productReducer = createReducer(
   initialState,
 
   on(productActions.successFetchProductsACTION, (state: ProductsState, { payload }) =>{
-    let oldState = cloneDeep(state.products)
+    // let oldState = cloneDeep(state.products)
     return { 
       ...state, 
       products: payload }

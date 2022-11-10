@@ -7,8 +7,9 @@ export const requestFetchProductsACTION = createAction(
   props<{ page: number }>()
 );
 export const successFetchProductsACTION = createAction(
-  '[Products] Success Fetch Products',
-  props<{payload: ProductDTO[] }>()
+ '[Products] Success Fetch Products',
+  props<{payload: ProductDTO[] }>(),
+
 );
 
 export const requestFetchProductACTION = createAction(

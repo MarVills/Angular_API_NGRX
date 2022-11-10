@@ -75,11 +75,7 @@
 }
 
 .description{
-  /* margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 40px; */
   margin: 40px 20px 0px 30px;
-  justify-content: stretch;
   font-size: 10;
 }
 
@@ -131,11 +127,10 @@
 .responsive-table mat-header-cell, mat-cell{
   text-align: center;
   justify-content: center;
+  font-size: 12px;
 }
 
-.responsive-table mat-header-cell mat-cell{
-  font-size: 5px;
-}
+
 
 .responsive-table mat-cell{
   background-color: #a4c1dd;
